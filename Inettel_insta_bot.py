@@ -7,8 +7,8 @@ import random
 from bs4 import BeautifulSoup
 import requests
 
-username='inettel.provider'
-password='8845svmIns'
+
+
 
 class InettelInstaBot():
     def __init__(self,username,password):
@@ -68,8 +68,8 @@ class InettelInstaBot():
             print(storis_exception)
             self.close_browser()
 
-    #Получаем ссылки на посты и ставим лайк
-    def scroll_page(self):
+    
+    def get_like(self):
         #Получаем ссылки на указанное количество постов
         browser = self.browser
         browser.get('https://www.instagram.com')
@@ -77,17 +77,18 @@ class InettelInstaBot():
         count=0
         body = browser.find_element_by_tag_name('body')
         #Здесь указано количество ссылок на посты, которые н нужно посмотреть
-        for i in range(0,8):
+        while len(urls_set)<=5:
             #эмитация на нажатие кнопки Page down для прокрутки страницы
             body.send_keys(Keys.PAGE_DOWN)
             time.sleep(3)
-            hrefs = browser.find_elements_by_tag_name('a')
+            href = browser.find_element_by_class_name('c-Yi7')
             try:
                 #Проверяем является ли полученная ссылка записью пользователя,
                 #Если является, то добавляем её во множество
-                urls_set = {i.get_attribute('href') for i in hrefs if "/p/" in i.get_attribute('href')}
-                count+=1
-                print(count)
+                if "/p/" in href.get_attribute('href'):
+                    urls_set.add(href.get_attribute('href'))
+                    count+=1
+                    print('iteracion: ',count,' len :',len(urls_set))
             except Exception as e:
                 print('error ', e)
             time.sleep(3)
@@ -102,7 +103,7 @@ class InettelInstaBot():
                 for s in svg:
                     fill=s.get_attribute('fill')
                     label=s.get_attribute('aria-label')
-                    #Проверка, лайка нет, то бот его ставит
+                    #Проверка, если лайка нет, то бот его ставит
                     if fill=='#262626' and label=='Нравится':
                          print(label)
                          time.sleep(3)
@@ -121,4 +122,5 @@ class InettelInstaBot():
         self.storis()
 instabot=InettelInstaBot(username,password)
 instabot.login()
-instabot.scroll_page()
+#instabot.scroll_page()
+instabot.get_like()
