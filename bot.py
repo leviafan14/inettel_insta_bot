@@ -4,8 +4,8 @@ from selenium.webdriver.common.keys import Keys
 import time
 import random
 
-username='inettel.provider'
-password='8845svmIns'
+username='user.name'
+password='password'
 browser = webdriver.Chrome('D:/my files/develop/InstaBot/chromedriver/chromedriver')
 #авторизация
 def login(username, password):
