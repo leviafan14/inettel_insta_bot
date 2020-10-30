@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.options import Options
 import time
 import random
-from bs4 import BeautifulSoup
-import requests
 
-
-
-
+#Описание класса бота
 class InettelInstaBot():
     def __init__(self,username,password):
         self.username=username
@@ -38,7 +33,7 @@ class InettelInstaBot():
             password_input.send_keys(self.password)
             password_input.send_keys(Keys.ENTER)
             time.sleep(10)
-            #Подтверждение закрытия окон после авторизации
+            #Закрытие всплывающих окон после авторизации
             try:
                 element = browser.find_element_by_class_name('sqdOP')
                 element.click()
@@ -67,8 +62,9 @@ class InettelInstaBot():
         except Exception as storis_exception:
             print(storis_exception)
             self.close_browser()
+        return 1
 
-    
+    #Ставим лайк на запись 
     def get_like(self):
         #Получаем ссылки на указанное количество постов
         browser = self.browser
@@ -77,7 +73,9 @@ class InettelInstaBot():
         count=0
         body = browser.find_element_by_tag_name('body')
         #Здесь указано количество ссылок на посты, которые н нужно посмотреть
-        while len(urls_set)<=5:
+        count_posts=random.randrange(5, 10)
+        print('Будет просмотрено:', count_posts)
+        while len(urls_set)<=count_posts:
             #эмитация на нажатие кнопки Page down для прокрутки страницы
             body.send_keys(Keys.PAGE_DOWN)
             time.sleep(3)
@@ -120,7 +118,4 @@ class InettelInstaBot():
             except Exception as ex:
                 print(ex)
         self.storis()
-instabot=InettelInstaBot(username,password)
-instabot.login()
-#instabot.scroll_page()
-instabot.get_like()
+
