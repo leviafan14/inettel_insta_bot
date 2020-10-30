@@ -1,8 +1,8 @@
 import Inettel_insta_bot
 from Inettel_insta_bot import InettelInstaBot
 #Данные для авторизации
-username='inettel.provider'
-password='8845svmIns'
+username='user.name'
+password='password'
 #Запуск бота
 if __name__ == '__main__':
     while True:
