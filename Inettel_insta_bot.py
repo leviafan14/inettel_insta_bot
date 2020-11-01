@@ -51,16 +51,31 @@ class InettelInstaBot():
         
     #Просмотр сторис
     def storis(self):
+        fragment_storis=[]
         time.sleep(3)
         try:
             browser = self.browser
             browser.get('https://www.instagram.com')
             storis=browser.find_element_by_class_name('Ckrof')
             storis.click()
-            time.sleep(200)
+            while True:
+                try:
+                    time.sleep(2)
+                    line_progress=browser.find_element_by_class_name('-Nmqg')
+                except Exception as except_progress:
+                    print('error progress line', except_progress)
+                    break
+                try:
+                    time.sleep(2)
+                    next_storis_button=browser.find_element_by_class_name('coreSpriteRightChevron')
+                    time.sleep(1)
+                    next_storis_button.click()
+                except Exception as ex:
+                    print('coreSpriteRightChevron ',ex)        
             self.close_browser()
         except Exception as storis_exception:
-            print(storis_exception)
+            print('storis_exception ',storis_exception)
+            time.sleep(random.randrange(3,20))
             self.close_browser()
         return 1
 
@@ -76,7 +91,7 @@ class InettelInstaBot():
         count_posts=random.randrange(5, 10)
         print('Будет просмотрено:', count_posts)
         while len(urls_set)<=count_posts:
-            #эмитация на нажатие кнопки Page down для прокрутки страницы
+            #эмитация нажатия кнопки Page down для прокрутки страницы
             body.send_keys(Keys.PAGE_DOWN)
             time.sleep(3)
             href = browser.find_element_by_class_name('c-Yi7')
