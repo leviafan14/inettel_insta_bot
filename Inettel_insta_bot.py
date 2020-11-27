@@ -139,7 +139,7 @@ class InettelInstaBot():
                 time.sleep(random.randrange(3))
             except Exception as ex:
                 print(ex)
-        self.storis()
+      
     
     #Подписываемся на пользователей
     def subscribe(self):
