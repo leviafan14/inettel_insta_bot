@@ -51,6 +51,7 @@ class InettelInstaBot():
                 print('Окно не обнаружено ', e)
         except Exception as main_auth_except:
             print(main_auth_except)
+
         
     #Просмотр сторис
     def storis(self):
@@ -83,6 +84,7 @@ class InettelInstaBot():
             self.close_browser()
         return 1
 
+
     #Ставим лайк на запись 
     def get_like(self):
         #Получаем ссылки на указанное количество постов
@@ -93,7 +95,7 @@ class InettelInstaBot():
         body = browser.find_element_by_tag_name('body')
         
         #Здесь указано количество ссылок на посты, которые н нужно посмотреть
-        count_posts=random.randrange(6, 10)
+        count_posts=random.randrange(9, 12)
         print('Будет просмотрено:', count_posts)
         while len(urls_set)<=count_posts:
             
@@ -111,6 +113,7 @@ class InettelInstaBot():
             except Exception as e:
                 print('error ', e)
             time.sleep(3)
+
             
         #Проверяем полученные ссылки на посты, если лайка нет, то ставим его
         print('len:',len(urls_set))
@@ -139,7 +142,7 @@ class InettelInstaBot():
                 time.sleep(random.randrange(3))
             except Exception as ex:
                 print(ex)
-        self.storis()
+ 
     
     #Подписываемся на пользователей
     def subscribe(self):
