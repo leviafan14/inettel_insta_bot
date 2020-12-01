@@ -55,24 +55,25 @@ class InettelInstaBot():
         
     #Просмотр сторис
     def storis(self):
-        fragment_storis=[]
-        time.sleep(3)
+        fragment_storis = []
+        time.sleep(5)
         try:
             browser = self.browser
             browser.get('https://www.instagram.com')
+            time.sleep(5)
+            storis = browser.find_element_by_class_name('Ckrof')
             time.sleep(3)
-            storis=browser.find_element_by_class_name('Ckrof')
             storis.click()
             while True:
                 try:
-                    time.sleep(2)
-                    line_progress=browser.find_element_by_class_name('-Nmqg')
+                    time.sleep(4)
+                    line_progress = browser.find_element_by_class_name('-Nmqg')
                 except Exception as except_progress:
                     print('error progress line', except_progress)
                     break
                 try:
                     time.sleep(2)
-                    next_storis_button=browser.find_element_by_class_name('coreSpriteRightChevron')
+                    next_storis_button = browser.find_element_by_class_name('coreSpriteRightChevron')
                     time.sleep(1)
                     next_storis_button.click()
                 except Exception as ex:
@@ -91,11 +92,11 @@ class InettelInstaBot():
         browser = self.browser
         browser.get('https://www.instagram.com')
         urls_set=set()
-        count=1
+        count = 1
         body = browser.find_element_by_tag_name('body')
         
         #Здесь указано количество ссылок на посты, которые н нужно посмотреть
-        count_posts=random.randrange(9, 12)
+        count_posts=random.randrange(12, 13)
         print('Будет просмотрено:', count_posts)
         while len(urls_set)<=count_posts:
             
@@ -108,7 +109,7 @@ class InettelInstaBot():
                 #Если является, то добавляем её во множество
                 if "/p/" in href.get_attribute('href'):
                     urls_set.add(href.get_attribute('href'))
-                    count+=1
+                    count += 1
                     print('iteracion: ',count,' len :',len(urls_set))
             except Exception as e:
                 print('error ', e)
@@ -121,11 +122,11 @@ class InettelInstaBot():
             try:
                 browser.get(url)
                 time.sleep(3)
-                svg=browser.find_elements_by_tag_name('svg')
+                svg = browser.find_elements_by_tag_name('svg')
                 print(url)
                 for s in svg:
-                    fill=s.get_attribute('fill')
-                    label=s.get_attribute('aria-label')
+                    fill = s.get_attribute('fill')
+                    label = s.get_attribute('aria-label')
                     #Проверка, если лайка нет, то бот его ставит
                     if fill=='#262626' and label=='Нравится':
                          print('Ставлю лайк')
@@ -148,20 +149,20 @@ class InettelInstaBot():
     def subscribe(self):
         browser = self.browser
         browser.get('https://www.instagram.com/explore/people/suggested/')
-        users_links=set()
+        users_links = set()
         #Отсчет для подписки на пользователей
-        count=1
+        count = 1
         #Рандомное количество пользователей на которых подпишется бот
         count_new_subscribes=random.randrange(3, 5) 
         time.sleep(5)
         print('Количество новых подписок:', count_new_subscribes)
         
         #Получаем ссылки на аккаунты
-        users=browser.find_elements_by_class_name('FPmhX.notranslate.MBL3Z')
+        users = browser.find_elements_by_class_name('FPmhX.notranslate.MBL3Z')
         for i in users:
-            if count<=count_new_subscribes:
+            if count <= count_new_subscribes:
                 users_links.add(i.get_attribute('href'))
-                count+=1
+                count += 1
             else:
                 break
         for user_url in users_links:
@@ -178,9 +179,9 @@ class InettelInstaBot():
         
             #Получаем кнопку и проверяем, является ли она кнопкой "Подписаться"
             try:
-                subscribe_button=browser.find_element_by_class_name('_5f5mN.jIbKX._6VtSN.yZn4P')
-                text=subscribe_button.text #Получаем текст кнопки
-                if text=='Подписаться':
+                subscribe_button = browser.find_element_by_class_name('_5f5mN.jIbKX._6VtSN.yZn4P')
+                text = subscribe_button.text #Получаем текст кнопки
+                if text == 'Подписаться':
                     print(text,' - Профиль открыт, аккаунт на нас не подписан')
                     subscribe_button.click()
                     continue
@@ -194,7 +195,7 @@ class InettelInstaBot():
             try:
                 subscribe_button=browser.find_element_by_class_name('_5f5mN.jIbKX._6VtSN.yZn4P')
                 text=subscribe_button.text #Получаем текст кнопки
-                if text=='Подписаться в ответ':
+                if text == 'Подписаться в ответ':
                     print(text,' - Профиль открыт, аккаунт подписан на нас')
                     subscribe_button.click()
                 else:
