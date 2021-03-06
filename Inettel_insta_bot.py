@@ -11,7 +11,7 @@ class InettelInstaBot():
         self.password=password
         self.browser=webdriver.Chrome('D:/my files/develop/InstaBot/chromedriver/chromedriver')
 
-    #Закрытие браузера
+    # Закрытие браузера
     def close_browser(self):
         self.browser.close()
         self.browser.quit()
