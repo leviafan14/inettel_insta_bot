@@ -5,10 +5,10 @@ from Inettel_insta_bot import InettelInstaBot
 username = 'inettel.provider'
 password = '8845svmIns'
 
-#Запуск бота
+# Запуск бота
 if __name__ == '__main__':
     instabot=InettelInstaBot(username,password)
     instabot.login()
     instabot.get_like()
     instabot.storis()
-    instabot.subscribe()
+    #instabot.subscribe()
